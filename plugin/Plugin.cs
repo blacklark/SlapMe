@@ -35,9 +35,9 @@ namespace PatMe
             Service.patCounter = new EmoteCounter()
             {
                 counterEmoteId = EmoteReaderHooks.petEmoteId,
-                counterDesc = "pat",
-                counterDescPlural = "pats",
-                uiDesc = "Head pats",
+                counterDesc = "slap",
+                counterDescPlural = "slaps",
+                uiDesc = "Slaps",
             };
             Service.patCounter.OnChanged += (num) => OnEmoteReward(Service.patCounter, num);
             emoteCounters.Add(Service.patCounter);
@@ -49,7 +49,7 @@ namespace PatMe
                 triggerEmoteIds = new int[] { 146, 147 },
                 counterDesc = "dote",
                 counterDescPlural = "dotes",
-                uiDesc = "Ranged pats",
+                uiDesc = "Unslaps",
             };
             Service.doteCounter.OnChanged += (num) => OnEmoteReward(Service.doteCounter, num);
             Service.doteCounter.isActive = Service.pluginConfig.canTrackDotes;
@@ -66,8 +66,8 @@ namespace PatMe
             patCountUI = new PatCountUI();
             windowSystem.AddWindow(patCountUI);
 
-            Service.commandManager.AddHandler("/patme", new(OnCommand) { HelpMessage = "Show pat counter" });
-            Service.commandManager.AddHandler("/patcount", new(OnCommand) { HelpMessage = "Show persistent pat counter" });
+            Service.commandManager.AddHandler("/slapme", new(OnCommand) { HelpMessage = "Show slap counter" });
+            Service.commandManager.AddHandler("/slapcount", new(OnCommand) { HelpMessage = "Show persistent slap counter" });
             pluginInterface.UiBuilder.Draw += OnDraw;
             pluginInterface.UiBuilder.OpenConfigUi += OnOpenConfig;
 
@@ -107,8 +107,8 @@ namespace PatMe
             emoteReader.Dispose();
             windowSystem.RemoveAllWindows();
 
-            Service.commandManager.RemoveHandler("/patme");
-            Service.commandManager.RemoveHandler("/patcount");
+            Service.commandManager.RemoveHandler("/slaptme");
+            Service.commandManager.RemoveHandler("/slapcount");
             Service.framework.Update -= Framework_Update;
             Service.clientState.TerritoryChanged -= ClientState_TerritoryChanged;
             Service.clientState.Logout -= ClientState_Logout;
@@ -116,7 +116,7 @@ namespace PatMe
 
         private void OnCommand(string command, string args)
         {
-            if (command == "/patme")
+            if (command == "/slapme")
             {
                 DescribeCounter(Service.patCounter, false);
                 foreach (var counter in emoteCounters)
@@ -127,7 +127,7 @@ namespace PatMe
                     }
                 }
             }
-            else if (command == "/patcount")
+            else if (command == "/slapcount")
             {
                 patCountUI.Toggle();
             }
