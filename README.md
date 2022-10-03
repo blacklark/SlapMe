@@ -1,4 +1,4 @@
-# Pat Me
+# Slap Me
 Dalamud plugin for counting how many times your character gets slapped. Because it's funnier. 
 
 
